@@ -1,5 +1,5 @@
-const { planos } = require('./tables/planos')
+const { planos } = require('./tables/planos');
 
 module.exports = {
-  planos: planos
-}
+  planos: planos,
+};
