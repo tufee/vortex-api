@@ -1,17 +1,19 @@
-const database = require('../../config/database')
+const { Ok } = require('@herbsjs/herbs');
+const Database = require('../../config/database');
 
-const TarifaEntity = require('../../domain/entities/Tarifa')
+const TarifaEntity = require('../../domain/entities/Tarifa');
 
 class TarifaRepository {
-  async CalcularPrecoChamada(country) {
-    try {
-         
-       //Aqui eu faço o cálculo da chamada ? 
+  constructor() {
+    this.Database = Database;
+  }
 
-    } catch (err) {
-      throw new Error(err)
-    }
+  buscarTarifa(origem, destino) {
+    const tarifa = this.Database.tarifas.find(
+      (x) => x.origem === origem && x.destino === destino
+    );
+    return Ok(TarifaEntity.fromJSON(tarifa));
   }
 }
 
-module.exports = TarifaRepository
+module.exports = TarifaRepository;

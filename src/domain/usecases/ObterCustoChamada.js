@@ -1,13 +1,21 @@
 const { Ok, usecase, step, ifElse, Err } = require('@herbsjs/herbs');
 const Chamada = require('../entities/Chamada');
-const Tarifa = require('../entities/Tarifa');
-const TarifaRepository = require('../../repository/db/TarifaRepository');
 
-const dependency = { Tarifa, TarifaRepository };
+const dependency = {
+  PlanoRepository: require('../../repository/db/PlanoRepository'),
+  TarifaRepository: require('../../repository/db/TarifaRepository'),
+};
 
 const ObterCustoChamada = (injection) =>
   usecase('Obtém custo de chamada por plano e DDD', {
-    request: Chamada,
+    request: {
+      origem: String,
+      destino: String,
+      duracao: Number,
+      plano: String,
+    },
+
+    response: { custo: Number },
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
@@ -34,12 +42,39 @@ const ObterCustoChamada = (injection) =>
     // buscar o plano e pegar os minutos
     // fazer os minutos do plano - duracao e se a
     // duracao for maior , fazer * 10% de taxa
-    'Retorna custo de chamada': step(async (ctx) => {
-      const tarifaRepo = new ctx.di.TarifaRepository(ctx.di);
-      custo = ctx.ret.custo = await tarifaRepo.CalcularPrecoChamada(
-        ctx.req.country
+    'Busca o plano': step(async (ctx) => {
+      const req = ctx.req;
+
+      const planoRepository = new ctx.di.PlanoRepository(injection);
+      const plano = planoRepository.buscarPlano(ctx.req.plano);
+
+      const tarifaRepository = new ctx.di.TarifaRepository(injection);
+
+      const tarifa = tarifaRepository.buscarTarifa(
+        ctx.req.origem,
+        ctx.req.destino
       );
-      return Ok({ custo });
+
+      //console.log(plano.value.minutos);
+
+      const minExcedentes = req.duracao - plano.value.minutos;
+
+      const custoComTarifaFixa = req.duracao * tarifa.value.valor;
+
+      if (minExcedentes > 0) {
+        const taxaAdicional = tarifa.value.valor * 0.1;
+
+        const custoComTarifaExtra =
+          minExcedentes * (tarifa.value.valor + taxaAdicional);
+
+        console.log(custoComTarifaExtra + ' com tarifa');
+
+        return Ok((ctx.ret = { custoComTarifaExtra, custoComTarifaFixa }));
+      }
+
+      const comPlano = 0;
+
+      return Ok((ctx.ret = { comPlano, custoComTarifaFixa }));
     }),
   });
 

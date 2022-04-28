@@ -1,17 +1,16 @@
-const database = require('../../config/database')
-
-const PlanoEntity = require('../../domain/entities/Plano')
+const { Ok } = require('@herbsjs/herbs');
+const Database = require('../../config/database');
+const PlanoEntity = require('../../domain/entities/Plano');
 
 class PlanoRepository {
-  async BuscarPlano(nome) {
-    try {
+  constructor() {
+    this.Database = Database;
+  }
 
-      return database.planos.filter(x => x.nome == nome);
-
-    } catch (err) {
-      throw new Error(err)
-    }
+  buscarPlano(nome) {
+    const plano = this.Database.planos.find((x) => x.nome === nome);
+    return Ok(PlanoEntity.toJSON(plano));
   }
 }
 
-module.exports = PlanoRepository
+module.exports = PlanoRepository;

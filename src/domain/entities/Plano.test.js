@@ -1,5 +1,7 @@
 const assert = require('assert');
 const Plano = require('./Plano');
+const PlanoRepository = require('../../repository/db/PlanoRepository');
+const TarifaRepository = require('../../repository/db/TarifaRepository');
 
 describe('Teste plano', () => {
   describe('Id válido', () => {
@@ -88,6 +90,34 @@ describe('Teste plano', () => {
       // Then
       assert.ok(!novoPlano.isValid());
       assert.deepEqual(novoPlano.errors, { minutos: [{ notGreaterThan: 0 }] });
+    });
+  });
+
+  describe('test plano repository', () => {
+    it('plano', async () => {
+      // Given
+      const planoRepository = new PlanoRepository();
+
+      const plano = planoRepository.buscarPlano('FaleMais 30');
+
+      console.log(plano);
+      // When
+
+      // Then
+    });
+  });
+
+  describe('test tarifa repository', () => {
+    it('tarifa', async () => {
+      // Given
+      const tarifaRepository = new TarifaRepository();
+
+      const tarifa = tarifaRepository.buscaTarifa('017', '011');
+
+      console.log(tarifa);
+      // When
+
+      // Then
     });
   });
 });
