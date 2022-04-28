@@ -11,7 +11,8 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(novaChamada.isValid());
@@ -25,7 +26,8 @@ describe('Teste chamada', () => {
       novaChamada.id = 0;
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(!novaChamada.isValid());
@@ -42,7 +44,8 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(novaChamada.isValid());
@@ -56,7 +59,8 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '021';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(!novaChamada.isValid());
@@ -75,7 +79,8 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(novaChamada.isValid());
@@ -89,7 +94,8 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '079';
-      novaChamada.valorPorMinuto = 1.9;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(!novaChamada.isValid());
@@ -99,8 +105,8 @@ describe('Teste chamada', () => {
     });
   });
 
-  describe('Valor por minuto válido', () => {
-    it('Deve possuir um valor por minuto válido', async () => {
+  describe('Duraçao válida', () => {
+    it('Deve possuir um tempo de duração válido', async () => {
       // Given
       const novaChamada = new Chamada();
 
@@ -108,26 +114,65 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.valorPorMinuto = 2.7;
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(novaChamada.isValid());
     });
 
-    it('Deve possuir um valor por minuto inválido', async () => {
+    it('Deve possuir um tempo de duração inválido', async () => {
       // Given
       const novaChamada = new Chamada();
 
       // When
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
-      novaChamada.destino = '018';
-      novaChamada.valorPorMinuto = undefined;
+      novaChamada.destino = '016';
+      novaChamada.duracao = 0;
+      novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(!novaChamada.isValid());
       assert.deepEqual(novaChamada.errors, {
-        valorPorMinuto: [{ cantBeEmpty: true }],
+        duracao: [{ notGreaterThan: 0 }],
+      });
+    });
+  });
+
+  describe('Plano válido', () => {
+    it('Deve possuir um plano válido', async () => {
+      // Given
+      const novaChamada = new Chamada();
+
+      // When
+      novaChamada.id = Math.floor(Math.random() * 1000);
+      novaChamada.origem = '011';
+      novaChamada.destino = '016';
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais 30';
+
+      // Then
+      assert.ok(novaChamada.isValid());
+    });
+
+    it('Deve possuir um plano inválido', async () => {
+      // Given
+      const novaChamada = new Chamada();
+
+      // When
+      novaChamada.id = Math.floor(Math.random() * 1000);
+      novaChamada.origem = '011';
+      novaChamada.destino = '016';
+      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.plano = 'FaleMais';
+
+      // Then
+      assert.ok(!novaChamada.isValid());
+      assert.deepEqual(novaChamada.errors, {
+        plano: [
+          { notContains: ['FaleMais 30', 'FaleMais 60', 'FaleMais 120'] },
+        ],
       });
     });
   });

@@ -22,9 +22,18 @@ const Chamada = entity('Chamada', {
       contains: { allowed: ['011', '016', '017', '018'] },
     },
   }),
-  valorPorMinuto: field(Number, {
+  duracao: field(Number, {
     validation: {
       presence: true,
+      numericality: {
+        greaterThan: 0,
+      },
+    },
+  }),
+  plano: field(String, {
+    validation: {
+      presence: true,
+      contains: { allowed: ['FaleMais 30', 'FaleMais 60', 'FaleMais 120'] },
     },
   }),
 });
