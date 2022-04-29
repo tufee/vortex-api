@@ -1,6 +1,6 @@
 const { Ok } = require('@herbsjs/herbs');
 const Database = require('../../config/database');
-const PlanoEntity = require('../../domain/entities/Plano');
+const PlanoEntity = require('../../../domain/entities/Plano');
 
 class PlanoRepository {
   constructor() {

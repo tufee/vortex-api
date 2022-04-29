@@ -1,8 +1,7 @@
-require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const Swagger = require('./swagger');
-const tariffaRoute = require('./routes/tariffaRoute');
+const tariffaRoute = require('./rest/routes/tariffaRoute');
 
 class App {
   constructor() {

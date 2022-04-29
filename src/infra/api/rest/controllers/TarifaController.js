@@ -1,4 +1,4 @@
-const ObterCustoChamada = require('../../domain/usecases/ObterCustoChamada');
+const ObterCustoChamada = require('../../../../domain/usecases/ObterCustoChamada');
 
 class TarifaController {
   async ObterCustoChamada(req, res) {

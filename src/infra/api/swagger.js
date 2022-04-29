@@ -1,14 +1,12 @@
-const swaggerJsDoc = require('swagger-jsdoc')
-const swaggerUi = require('swagger-ui-express')
-const {Router} = require('express')
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const { Router } = require('express');
 
 class Swagger {
-
   routes;
   swaggerDocs;
 
   constructor() {
-
     this.routes = Router();
     const swaggerOptions = {
       swaggerDefinition: {
@@ -19,16 +17,19 @@ class Swagger {
         },
       },
       basePath: '/',
-      apis: ['./src/api/routes/*.js']
+      apis: ['./src/infra/api/rest/routes/*.js'],
     };
     this.swaggerDocs = swaggerJsDoc(swaggerOptions);
   }
 
-
   GetSwaggerRoutes() {
-    this.routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(this.swaggerDocs, {
-      explorer: true
-    }));
+    this.routes.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup(this.swaggerDocs, {
+        explorer: true,
+      })
+    );
     return this.routes;
   }
 }

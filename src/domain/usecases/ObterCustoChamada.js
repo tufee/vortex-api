@@ -2,8 +2,8 @@ const { Ok, usecase, step, Err } = require('@herbsjs/herbs');
 const Chamada = require('../entities/Chamada');
 
 const dependency = {
-  PlanoRepository: require('../../repository/db/PlanoRepository'),
-  TarifaRepository: require('../../repository/db/TarifaRepository'),
+  PlanoRepository: require('../../infra/repository/db/PlanoRepository'),
+  TarifaRepository: require('../../infra/repository/db/TarifaRepository'),
 };
 
 const ObterCustoChamada = (injection) =>

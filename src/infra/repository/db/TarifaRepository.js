@@ -1,7 +1,6 @@
 const { Ok } = require('@herbsjs/herbs');
 const Database = require('../../config/database');
-
-const TarifaEntity = require('../../domain/entities/Tarifa');
+const TarifaEntity = require('../../../domain/entities/Tarifa');
 
 class TarifaRepository {
   constructor() {

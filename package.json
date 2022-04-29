@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --recursive src/**/*.test.js --timeout 10000",
     "coverage": "nyc mocha src/**/*.test.js",
-    "start": "nodemon src/api/server.js"
+    "start": "nodemon src/infra/api/server.js"
   },
   "author": "",
   "license": "ISC",
