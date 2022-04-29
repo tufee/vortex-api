@@ -1,4 +1,4 @@
-const { Ok, usecase, step, ifElse, Err } = require('@herbsjs/herbs');
+const { Ok, usecase, step, Err } = require('@herbsjs/herbs');
 const Chamada = require('../entities/Chamada');
 
 const dependency = {
@@ -39,42 +39,62 @@ const ObterCustoChamada = (injection) =>
       return Ok();
     }),
 
-    // buscar o plano e pegar os minutos
-    // fazer os minutos do plano - duracao e se a
-    // duracao for maior , fazer * 10% de taxa
-    'Busca o plano': step(async (ctx) => {
+    'Busca o valor da tarifa': step(async (ctx) => {
+      const req = ctx.req;
+
+      const tarifaRepository = new ctx.di.TarifaRepository(injection);
+      const DDD = tarifaRepository.buscarDDD(req.origem, req.destino);
+      const valorTarifa = DDD.value.valor;
+
+      if (valorTarifa) {
+        ctx.valorTarifa = valorTarifa;
+        return Ok(ctx.valorTarifa);
+      }
+
+      return Err('Valor da tarifa não encontrado');
+    }),
+
+    'Calcula o custo da chamada sem plano': step(async (ctx) => {
+      const req = ctx.req;
+
+      if (req.duracao) {
+        ctx.custoSemPlano = ctx.valorTarifa * req.duracao;
+        return Ok(ctx.custoSemPlano);
+      }
+
+      return Err('Duração inválida');
+    }),
+
+    'Verifica se há minutos excedentes': step(async (ctx) => {
       const req = ctx.req;
 
       const planoRepository = new ctx.di.PlanoRepository(injection);
-      const plano = planoRepository.buscarPlano(ctx.req.plano);
+      const plano = planoRepository.buscarPlano(req.plano);
+      const minutosPlano = plano.value.minutos;
 
-      const tarifaRepository = new ctx.di.TarifaRepository(injection);
-
-      const tarifa = tarifaRepository.buscarTarifa(
-        ctx.req.origem,
-        ctx.req.destino
-      );
-
-      //console.log(plano.value.minutos);
-
-      const minExcedentes = req.duracao - plano.value.minutos;
-
-      const custoComTarifaFixa = req.duracao * tarifa.value.valor;
-
-      if (minExcedentes > 0) {
-        const taxaAdicional = tarifa.value.valor * 0.1;
-
-        const custoComTarifaExtra =
-          minExcedentes * (tarifa.value.valor + taxaAdicional);
-
-        console.log(custoComTarifaExtra + ' com tarifa');
-
-        return Ok((ctx.ret = { custoComTarifaExtra, custoComTarifaFixa }));
+      if (minutosPlano) {
+        ctx.minutos = req.duracao - minutosPlano;
+        return Ok(ctx.minutos);
       }
 
-      const comPlano = 0;
+      return Err('Minutos do plano não encontrados');
+    }),
 
-      return Ok((ctx.ret = { comPlano, custoComTarifaFixa }));
+    'Calcula o custo da chamada com plano': step(async (ctx) => {
+      if (ctx.minutos > 0) {
+        const taxaAdicional = ctx.valorTarifa * 0.1;
+        ctx.custoComPlano = ctx.minutos * (ctx.valorTarifa + taxaAdicional);
+        return Ok(ctx.custoComPlano);
+      }
+
+      return Ok((ctx.custoComPlano = 0));
+    }),
+
+    'Retorna o custo da chamada': step(async (ctx) => {
+      const custoComPlano = ctx.custoComPlano;
+      const custoSemPlano = ctx.custoSemPlano;
+
+      return Ok((ctx.ret = { custoComPlano, custoSemPlano }));
     }),
   });
 

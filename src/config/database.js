@@ -1,7 +1,7 @@
 const planos = require('./tables/planos');
-const tarifas = require('./tables/tarifas');
+const DDDs = require('./tables/DDDs');
 
 module.exports = {
   planos: planos,
-  tarifas: tarifas,
+  DDDs: DDDs,
 };

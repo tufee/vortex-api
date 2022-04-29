@@ -9,7 +9,7 @@ class PlanoRepository {
 
   buscarPlano(nome) {
     const plano = this.Database.planos.find((x) => x.nome === nome);
-    return Ok(PlanoEntity.toJSON(plano));
+    return Ok(PlanoEntity.fromJSON(plano));
   }
 }
 

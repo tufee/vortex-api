@@ -8,11 +8,11 @@ class TarifaRepository {
     this.Database = Database;
   }
 
-  buscarTarifa(origem, destino) {
-    const tarifa = this.Database.tarifas.find(
+  buscarDDD(origem, destino) {
+    const DDD = this.Database.DDDs.find(
       (x) => x.origem === origem && x.destino === destino
     );
-    return Ok(TarifaEntity.fromJSON(tarifa));
+    return Ok(TarifaEntity.fromJSON(DDD));
   }
 }
 

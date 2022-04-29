@@ -1,4 +1,4 @@
-const tarifas = [
+const DDDs = [
   { id: '1', origem: '011', destino: '016', valor: 1.9 },
   { id: '2', origem: '016', destino: '011', valor: 2.9 },
   { id: '3', origem: '011', destino: '017', valor: 1.7 },
@@ -7,4 +7,4 @@ const tarifas = [
   { id: '6', origem: '018', destino: '011', valor: 1.9 },
 ];
 
-module.exports = tarifas;
+module.exports = DDDs;

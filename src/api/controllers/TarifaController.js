@@ -13,9 +13,7 @@ class TarifaController {
 
       const caseResponse = await ucObterCustoChamada.run(parameters);
 
-      console.log(caseResponse);
       if (caseResponse.isErr) {
-        //logger.error(caseResponse);
         console.error(caseResponse);
         return res.status(400).json(caseResponse.err);
       }
