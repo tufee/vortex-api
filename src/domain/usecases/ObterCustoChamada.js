@@ -44,6 +44,7 @@ const ObterCustoChamada = (injection) =>
 
       const tarifaRepository = new ctx.di.TarifaRepository(injection);
       const DDD = tarifaRepository.buscarDDD(req.origem, req.destino);
+
       const valorTarifa = DDD.value.valor;
 
       if (valorTarifa) {
@@ -70,6 +71,7 @@ const ObterCustoChamada = (injection) =>
 
       const planoRepository = new ctx.di.PlanoRepository(injection);
       const plano = planoRepository.buscarPlano(req.plano);
+
       const minutosPlano = plano.value.minutos;
 
       if (minutosPlano) {
