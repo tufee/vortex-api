@@ -11,7 +11,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -26,7 +26,7 @@ describe('Teste chamada', () => {
       novaChamada.id = 0;
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -44,7 +44,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -59,7 +59,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '021';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -79,7 +79,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -94,7 +94,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '079';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -114,7 +114,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -129,13 +129,13 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = 0;
+      novaChamada.duracao = undefined;
       novaChamada.plano = 'FaleMais 30';
 
       // Then
       assert.ok(!novaChamada.isValid());
       assert.deepEqual(novaChamada.errors, {
-        duracao: [{ notGreaterThan: 0 }],
+        duracao: [{ cantBeEmpty: true }],
       });
     });
   });
@@ -149,7 +149,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais 30';
 
       // Then
@@ -164,7 +164,7 @@ describe('Teste chamada', () => {
       novaChamada.id = Math.floor(Math.random() * 1000);
       novaChamada.origem = '011';
       novaChamada.destino = '016';
-      novaChamada.duracao = Math.floor(Math.random() * 100);
+      novaChamada.duracao = '20';
       novaChamada.plano = 'FaleMais';
 
       // Then

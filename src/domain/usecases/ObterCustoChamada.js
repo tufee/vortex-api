@@ -11,11 +11,11 @@ const ObterCustoChamada = (injection) =>
     request: {
       origem: String,
       destino: String,
-      duracao: Number,
+      duracao: String,
       plano: String,
     },
 
-    response: { custo: Number },
+    response: { custoComPlano: Number, custoSemPlano: Number },
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 

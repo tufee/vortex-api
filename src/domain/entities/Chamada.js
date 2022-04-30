@@ -22,12 +22,9 @@ const Chamada = entity('Chamada', {
       contains: { allowed: ['011', '016', '017', '018'] },
     },
   }),
-  duracao: field(Number, {
+  duracao: field(String, {
     validation: {
       presence: true,
-      numericality: {
-        greaterThan: 0,
-      },
     },
   }),
   plano: field(String, {

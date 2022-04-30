@@ -5,10 +5,10 @@ class TarifaController {
     try {
       const ucObterCustoChamada = ObterCustoChamada();
       const parameters = {
-        origem: req.body.origem,
-        destino: req.body.destino,
-        duracao: req.body.duracao,
-        plano: req.body.plano,
+        origem: req.query.origem,
+        destino: req.query.destino,
+        duracao: req.query.duracao,
+        plano: req.query.plano,
       };
 
       const caseResponse = await ucObterCustoChamada.run(parameters);

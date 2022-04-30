@@ -31,7 +31,7 @@ describe('Teste obter custo chamada', () => {
       const parameters = {
         origem: '011',
         destino: '016',
-        duracao: 20,
+        duracao: '20',
         plano: 'FaleMais 30',
       };
 
@@ -50,7 +50,7 @@ describe('Teste obter custo chamada', () => {
       const parameters = {
         origem: '021',
         destino: '016',
-        duracao: 20,
+        duracao: '20',
         plano: 'FaleMais 30',
       };
 
@@ -70,7 +70,7 @@ describe('Teste obter custo chamada', () => {
       const parameters = {
         origem: '011',
         destino: '021',
-        duracao: 20,
+        duracao: '20',
         plano: 'FaleMais 30',
       };
 
@@ -90,7 +90,7 @@ describe('Teste obter custo chamada', () => {
       const parameters = {
         origem: '011',
         destino: '016',
-        duracao: 0,
+        duracao: undefined,
         plano: 'FaleMais 30',
       };
 
@@ -110,7 +110,7 @@ describe('Teste obter custo chamada', () => {
       const parameters = {
         origem: '011',
         destino: '016',
-        duracao: 20,
+        duracao: '20',
         plano: 'FaleMais 360',
       };
 
