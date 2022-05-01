@@ -13,7 +13,7 @@ class Swagger {
         info: {
           title: 'VxTel API', // Title (required)
           version: '1.0.0', // Version (required)
-          description: 'VxTel API',
+          description: 'VxTel API - FaleMais',
         },
       },
       basePath: '/',
