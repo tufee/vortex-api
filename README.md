@@ -9,8 +9,8 @@ npm install
 npm start
 ```
 
-Roda o app no modo de desenvolvimento.<br />
+A API está configurada para utilizar a porta 3333.
 
-### `npm run build`
+## Docs
 
-Realiza o build do projeto.
+Para vizualizar a documentação acesse [http://localhost:3333/api-docs](http://localhost:3333/api-docs).
